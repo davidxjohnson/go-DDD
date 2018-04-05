@@ -1,7 +1,6 @@
 package infrastructure
 
 import (
-	"fmt"
 	"net/url"
 	"os"
 	"testing"
@@ -14,24 +13,18 @@ var addRow = Row{"city": "Hammonton", "email": "lthomas26@go.com", "first": "Jan
 var addFieldValue string
 
 func TestInit(t *testing.T) {
-	filePath := "./" + makeuuid() + ".json"
-	_, ok := InitTable(filePath)
+	filePath := "./testdata/" + makeuuid() + ".json"
+	_, ok := InitTable(filePath) // test creation of new table storage file
 	if !ok {
 		t.Errorf("TestInit: refused to create file '%s'", filePath)
 	}
-	os.Remove(filePath)
-	filePath = "./badtestdata.json"
-	_, ok = InitTable(filePath)
-	if ok {
-		t.Errorf("TestInit: received false 'ok' reading malformed JSON file '%s'", filePath)
-	}
+	os.Remove(filePath) // cleanup
 	// read the test data for the rest of the test cases
-	filePath = "./testdata.json"
+	filePath = "./testdata/testdata.json"
 	myTable, ok = InitTable(filePath)
 	if !ok {
-		t.Errorf("TestInit: Table create failed using filePath '%s'", filePath)
+		t.Errorf("TestInit: Table object create failed using filePath '%s'", filePath)
 	}
-	fmt.Printf("TestInit: file path is '%s'", myTable.filePath)
 }
 
 func TestAdd(t *testing.T) {
@@ -108,25 +101,5 @@ func TestCommit(t *testing.T) {
 	ok := myTable.Commit()
 	if !ok {
 		t.Errorf("TestCommit: failed to write '%s'.", myTable.filePath)
-	}
-	myTable.filePath = "/dev/sdc"
-	ok = myTable.Commit()
-	if ok {
-		t.Errorf("TestCommit: false 'ok' on write to bogus file '%s'.", myTable.filePath)
-	}
-}
-
-func TestWriteJSON(t *testing.T) {
-	ok := writeJSON(func() {}, "bogus")
-	if ok {
-		t.Errorf("TestWriteJSON: false 'ok' on write using invalid object func()")
-	}
-}
-
-func TestReadFileStream(t *testing.T) {
-	filePath := "./" + makeuuid() + ".json"
-	_, ok := readFileStream(filePath)
-	if ok {
-		t.Errorf("TestWriteJSON: false 'ok' on read of non-existing file.")
 	}
 }
