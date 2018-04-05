@@ -2,7 +2,6 @@ package infrastructure
 
 import (
 	"net/url"
-	"os"
 	"testing"
 )
 
@@ -13,12 +12,11 @@ var addRow = Row{"city": "Hammonton", "email": "lthomas26@go.com", "first": "Jan
 var addFieldValue string
 
 func TestInit(t *testing.T) {
-	filePath := "./testdata/" + makeuuid() + ".json"
+	filePath := "/tmp/" + makeuuid() + ".json"
 	_, ok := InitTable(filePath) // test creation of new table storage file
 	if !ok {
 		t.Errorf("TestInit: refused to create file '%s'", filePath)
 	}
-	os.Remove(filePath) // cleanup
 	// read the test data for the rest of the test cases
 	filePath = "./testdata/testdata.json"
 	myTable, ok = InitTable(filePath)
@@ -29,7 +27,7 @@ func TestInit(t *testing.T) {
 
 func TestAdd(t *testing.T) {
 	var myRow = addRow
-	key, ok := myTable.Add(myRow)
+	key, ok := myTable.AddRow(myRow)
 	if !ok {
 		t.Errorf("TestAdd: failed to add new row %+v", myRow)
 	}
@@ -41,7 +39,7 @@ func TestFindById(t *testing.T) {
 	var id = addKey
 	var fieldName = addFieldName
 	var fieldValue = addFieldValue
-	myRow, ok := myTable.FindByID(id)
+	myRow, ok := myTable.FindRowByID(id)
 	if !ok {
 		t.Errorf("TestFindById: myRow[%s]: not found.", id)
 	}
@@ -57,11 +55,11 @@ func TestUpdate(t *testing.T) {
 	var fieldValue = "jboyd12@telegraph.co.uk"
 	myRow := addRow
 	myRow[fieldName] = fieldValue
-	ok := myTable.Update(bogusID, myRow)
+	ok := myTable.UpdateRow(bogusID, myRow)
 	if ok {
 		t.Errorf("TestUpdate: myRow[%s]: was found, but shouldn't have (key is bogus).", bogusID)
 	}
-	ok = myTable.Update(id, myRow)
+	ok = myTable.UpdateRow(id, myRow)
 	if !ok {
 		t.Errorf("TestUpdate: myRow[%s]: not found.", id)
 	}
@@ -73,15 +71,15 @@ func TestUpdate(t *testing.T) {
 func TestDelete(t *testing.T) {
 	var id = addKey
 	bogusID := makeuuid()
-	ok := myTable.Delete(bogusID)
+	ok := myTable.DeleteRow(bogusID)
 	if ok {
 		t.Errorf("TestDelete: myRow[%s]: returned false 'ok for deletion of bogus key.", bogusID)
 	}
-	ok = myTable.Delete(id)
+	ok = myTable.DeleteRow(id)
 	if !ok {
 		t.Errorf("TestDelete: myRow[%s]: was not found for deletion.", id)
 	}
-	_, ok = myTable.FindByID(id)
+	_, ok = myTable.FindRowByID(id)
 	if ok {
 		t.Errorf("TestDelete: myRow[%s]: was found (should be deleted).", id)
 	}
@@ -91,14 +89,14 @@ func TestQuery(t *testing.T) {
 	myQuery := url.Values{}
 	myQuery.Add("state", "VA")
 	myQuery.Add("state", "NJ")
-	_, ok := myTable.Query(myQuery)
+	_, ok := myTable.QueryTable(myQuery)
 	if !ok {
 		t.Errorf("TestQuery: No results found.")
 	}
 }
 
 func TestCommit(t *testing.T) {
-	ok := myTable.Commit()
+	ok := myTable.CommitTable()
 	if !ok {
 		t.Errorf("TestCommit: failed to write '%s'.", myTable.filePath)
 	}
