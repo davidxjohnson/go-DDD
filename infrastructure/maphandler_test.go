@@ -122,3 +122,11 @@ func TestWriteJSON(t *testing.T) {
 		t.Errorf("TestWriteJSON: false 'ok' on write using invalid object func()")
 	}
 }
+
+func TestReadFileStream(t *testing.T) {
+	filePath := "./" + makeuuid() + ".json"
+	_, ok := readFileStream(filePath)
+	if ok {
+		t.Errorf("TestWriteJSON: false 'ok' on read of non-existing file.")
+	}
+}
