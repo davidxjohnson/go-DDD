@@ -35,19 +35,19 @@ func InitTable(filePath string) (t Table, ok bool) {
 	return
 }
 
-// Commit method writes entire datastore to disk
+// CommitTable method writes entire datastore to disk
 func (t Table) CommitTable() (ok bool) {
 	ok = writeJSON(t, t.filePath) // marshal and write to disk
 	return
 }
 
-// FindByID method gets index to Rows with matching ID
+// FindRowByID method gets index to Rows with matching ID
 func (t Table) FindRowByID(id string) (r Row, ok bool) {
 	r, ok = t.Rows[id]
 	return
 }
 
-// Add method populates a new Row record
+// AddRow method populates a new Row record
 func (t Table) AddRow(r Row) (id string, ok bool) {
 	id = makeuuid()
 	t.Rows[id] = r // Unique ID
@@ -55,7 +55,7 @@ func (t Table) AddRow(r Row) (id string, ok bool) {
 	return
 }
 
-// Update method modifies an existing Row record
+// UpdateRow method modifies an existing Row record
 func (t Table) UpdateRow(id string, r Row) (ok bool) {
 	_, ok = t.FindRowByID(id) // Find original Row Info
 	if !ok {                  // Return if not found
@@ -66,7 +66,7 @@ func (t Table) UpdateRow(id string, r Row) (ok bool) {
 	return
 }
 
-// Delete method destroys a Row record
+// DeleteRow method destroys a Row record
 func (t Table) DeleteRow(id string) (ok bool) {
 	_, ok = t.FindRowByID(id) // Find Row Info index
 	if !ok {                  // Return if Not Found
@@ -77,7 +77,7 @@ func (t Table) DeleteRow(id string) (ok bool) {
 	return
 }
 
-// Query method finds matching Row records and returns a Table object with all matching rows.
+// QueryTable method finds matching Row records and returns a Table object with all matching rows.
 // For query purposes, each key in url.Values[key] is unique.
 // Multiple keys in the map are considered "or" as are also multiple values for a single key.
 // Keys in url.Values are table column names (fields) in map[key]map[field]string in the Table object.
