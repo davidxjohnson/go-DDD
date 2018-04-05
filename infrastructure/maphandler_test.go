@@ -3,6 +3,7 @@ package infrastructure
 import (
 	"fmt"
 	"net/url"
+	"os"
 	"testing"
 )
 
@@ -15,9 +16,10 @@ var addFieldValue string
 func TestInit(t *testing.T) {
 	filePath := "./" + makeuuid() + ".json"
 	_, ok := InitTable(filePath)
-	if ok {
-		t.Errorf("TestInit: received false 'ok' reading non-existing file path '%s'", filePath)
+	if !ok {
+		t.Errorf("TestInit: refused to create file '%s'", filePath)
 	}
+	os.Remove(filePath)
 	filePath = "./badtestdata.json"
 	_, ok = InitTable(filePath)
 	if ok {
@@ -96,7 +98,6 @@ func TestQuery(t *testing.T) {
 	myQuery := url.Values{}
 	myQuery.Add("state", "VA")
 	myQuery.Add("state", "NJ")
-	fmt.Printf("%v+", myQuery)
 	_, ok := myTable.Query(myQuery)
 	if !ok {
 		t.Errorf("TestQuery: No results found.")

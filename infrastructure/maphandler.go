@@ -27,6 +27,12 @@ type Table struct {
 
 // InitTable function reads data from disk into new Table object
 func InitTable(filePath string) (t Table, ok bool) {
+	if _, err := os.Stat(filePath); os.IsNotExist(err) { // path/to/whatever does not exist
+		t.filePath = filePath
+		t.Rows = map[string]Row{}
+		ok = t.Commit()
+		return
+	}
 	ok = readJSON(&t, filePath)
 	if ok {
 		t.filePath = filePath
@@ -137,7 +143,7 @@ func writeJSON(sourceData interface{}, path string) (ok bool) {
 		ok = false
 		return
 	}
-	err = ioutil.WriteFile(path, rawData, 0)
+	err = ioutil.WriteFile(path, rawData, 0644)
 	if err != nil {
 		log.Print("writeJSON WriteFile: '" + path + "' " + err.Error())
 		ok = false
@@ -159,8 +165,7 @@ func readFileStream(filePath string) (rawData []byte, ok bool) {
 	defer fileHandle.Close() // closed this later
 	// Read file
 	rawData, err = ioutil.ReadAll(fileHandle)
-	// nearly impossible to throw this error and just as hard to test
-	if err != nil {
+	if err != nil { // nearly impossible to throw this error and just as hard to test
 		ok = false
 		log.Print("readFileStream: " + err.Error())
 		return
