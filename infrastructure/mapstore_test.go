@@ -11,17 +11,17 @@ var addFieldName = "email"
 var addRow = Row{"city": "Hammonton", "email": "lthomas26@go.com", "first": "Janie", "last": "Mitchell", "number": "13", "phone": "718-864-5281", "state": "NJ", "street": "E. Armstrong Rd.", "zip": "08037"}
 var addFieldValue interface{}
 
-func TestInit(t *testing.T) {
+func TestNewTable(t *testing.T) {
 	filePath := "/tmp/" + makeuuid() + ".json"
-	_, ok := InitTable(filePath) // test creation of new table storage file
+	_, ok := NewTable(filePath) // test creation of new table storage file
 	if !ok {
 		t.Errorf("TestInit: refused to create file '%s'", filePath)
 	}
 	// read the test data for the rest of the test cases
 	filePath = "./testdata/testdata.json"
-	myTable, ok = InitTable(filePath)
+	myTable, ok = NewTable(filePath) // myTable is global
 	if !ok {
-		t.Errorf("TestInit: Table object create failed using filePath '%s'", filePath)
+		t.Errorf("TestNewTable: Table object create failed using filePath '%s'", filePath)
 	}
 }
 

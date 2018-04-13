@@ -12,7 +12,7 @@ import (
 )
 
 // Row represents a dictionary or tupel of strings
-type Row map[string]string // Field (key) and value pairs
+type Row map[string]interface{} // Field (key) and value pairs
 
 // Table represents a collection of Rows
 type Table struct {
@@ -20,8 +20,8 @@ type Table struct {
 	Rows     map[string]Row `json:"rows"`
 }
 
-// InitTable function reads data from disk into new Table object
-func InitTable(filePath string) (t Table, ok bool) {
+// NewTable function reads data from disk into new Table object
+func NewTable(filePath string) (t Table, ok bool) {
 	if _, err := os.Stat(filePath); os.IsNotExist(err) { // path/to/whatever does not exist
 		t.filePath = filePath
 		t.Rows = map[string]Row{}
