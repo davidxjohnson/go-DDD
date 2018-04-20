@@ -10,7 +10,13 @@ import (
 	"net/url"
 	"os"
 )
+ 
 
+type datastoreModifier interface {
+	AddRow(r Row)
+	UpdateRow(id string, r Row)
+	DeleteRow(id string)
+}
 // Row represents a dictionary or tupel of strings
 type Row map[string]interface{} // Field (key) and value pairs
 
