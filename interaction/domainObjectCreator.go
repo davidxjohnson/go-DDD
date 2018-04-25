@@ -65,15 +65,15 @@ func validateEmailAddress(emailAddress email) bool {
 	return false
 }
 
-func (n name) validateName(contactName name) bool {
+func validateName(contactName name) bool {
 	return false	
 }
 
-func (s suffix) validateSuffix(suffixEntry suffix) bool {
+func validateSuffix(suffixEntry suffix) bool {
 	return false
 }
 
-func (a address) validateAddress(addressEntry address) bool {
+func validateAddress(addressEntry address) bool {
 	return false
 }
 
