@@ -1,7 +1,7 @@
 package interaction
 
 import (
-	"strings"
+	
 )
 //Struct of structs - create individual data structures for each attribute of the model
 //If the specified domain object doesn't match the criteria or is invalid, it's rejected
@@ -14,7 +14,6 @@ import (
 //The domain model is how you establish the concept or idea of the object to represent
 
 const maxFieldLength = 100
-
 
 //Change this to a simple string so it can be validated with a regex
 type phonenumber struct {
@@ -85,6 +84,12 @@ func (a address) validateAddress(address interface{}) address {
 func createContact(contactFields ...interface{}) {
 	//TODO: Figure out a way to validate inbound, ambiguously typed data
 	//TODO: so that we can call the appropriate function for that data
+	//TODO: What about goroutines? Each method is operated on its 
+	//TODO: own thread
+	//What if we bind each field in the struct to the appropriate
+	//constructor for that field and then loop those fields with the 
+	//passed-in parameter from the function call??
+	
 	for _, contact := range contactFields {
 
 	}
