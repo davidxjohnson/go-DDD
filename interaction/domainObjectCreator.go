@@ -61,8 +61,8 @@ type contact struct {
 //use this binding as a validation mechanism. Focus on their usage as 
 //methods rather than as i/o functions (oop paradigms)
 func (p phonenumber) validatePhoneNumber(phonenumber interface{}) phonenumber {
-		//TODO: regex to extract phone number
-		return p
+	//TODO: regex to extract phone number
+	return p
 }
 
 func (e email) validateEmailAddress(emailAddress interface{}) email {
@@ -82,22 +82,10 @@ func (a address) validateAddress(address interface{}) address {
 	return a
 }
 
-//Change this from a method to a regular fxn so it can build the
-//individual objects and bind them to the parent object
 func createContact(contactFields ...interface{}) {
-	for _, contactField := range contactFields {
-		switch contactField.(type) {
-		//Because we're asserting the datatype here, we're baking in an
-		//assumption that the value is already valid because it's being
-		//asserted to the datatype we expect and are validating for
-		//in the following function. We need to instead validate this 
-		//through a method with more intelligence and less assumptions
-		case phonenumber:
-			assertedPhoneNumber := contactField.(phonenumber)
-			
-			if validatePhoneNumber(assertedPhoneNumber) == true {
-				c.HomePhone = assertedPhoneNumber
-			}
-		}
+	//TODO: Figure out a way to validate inbound, ambiguously typed data
+	//TODO: so that we can call the appropriate function for that data
+	for _, contact := range contactFields {
+
 	}
 }
