@@ -15,12 +15,15 @@ import (
 
 const maxFieldLength = 100
 
+
+//Change this to a simple string so it can be validated with a regex
 type phonenumber struct {
 	areacode int
 	prefix   int
 	number   int 
 }
 
+//Change this to a simple string so it can be validated with a regex 
 type email struct {
 	domain   string
 	username string 
@@ -54,32 +57,41 @@ type contact struct {
 	WorkAddress  address     `json:"work_address"`
 }
 
-func validatePhoneNumber(number phonenumber) bool {
-	return false
+//Rebind these to their datatypes and rather than passing in an argument
+//use this binding as a validation mechanism. Focus on their usage as 
+//methods rather than as i/o functions (oop paradigms)
+func (p phonenumber) validatePhoneNumber(phonenumber interface{}) phonenumber {
+		//TODO: regex to extract phone number
+		return p
 }
 
-func validateEmailAddress(emailAddress email) bool {
-	if(len(emailAddress.username) + len(emailAddress.domain)) <= maxFieldLength && strings.Contains(e.domain, "@"){
-		return true
-	}	
-	return false
+func (e email) validateEmailAddress(emailAddress interface{}) email {
+	//TODO: regex to validate email address format
+	return e
 }
 
-func validateName(contactName name) bool {
-	return false	
+func (n name) validateName(contactName interface{}) name {
+	return n
 }
 
-func validateSuffix(suffixEntry suffix) bool {
-	return false
+func (s suffix) validateSuffix(suffix interface{}) suffix { 
+	return s
 }
 
-func validateAddress(addressEntry address) bool {
-	return false
+func (a address) validateAddress(address interface{}) address {
+	return a
 }
 
-func (c contact) createContact(contactFields ...interface{}) {
+//Change this from a method to a regular fxn so it can build the
+//individual objects and bind them to the parent object
+func createContact(contactFields ...interface{}) {
 	for _, contactField := range contactFields {
 		switch contactField.(type) {
+		//Because we're asserting the datatype here, we're baking in an
+		//assumption that the value is already valid because it's being
+		//asserted to the datatype we expect and are validating for
+		//in the following function. We need to instead validate this 
+		//through a method with more intelligence and less assumptions
 		case phonenumber:
 			assertedPhoneNumber := contactField.(phonenumber)
 			
