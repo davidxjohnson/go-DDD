@@ -1,4 +1,4 @@
-package purchaseorder
+package product
 
 type productDescription struct {
 	productNumber int

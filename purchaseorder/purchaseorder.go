@@ -6,9 +6,8 @@ type PurchaseOrder struct {
 	city         string
 	street       string
 	zipCode      int 
-	ordereditem  orderedItem
+	ordereditem  []orderedItem
 	quantity     int
-	product      productDescription
 }
 
 
