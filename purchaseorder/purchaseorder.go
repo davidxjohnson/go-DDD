@@ -10,4 +10,6 @@ type PurchaseOrder struct {
 	quantity     int
 }
 
+func (p PurchaseOrder) createPurchaseOrder() {
 
+}
