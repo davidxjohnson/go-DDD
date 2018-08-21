@@ -1,11 +1,10 @@
 package purchaseorder
 
 import (
-     "go-DDD/product"
+	"go-DDD/product"
 )
 
 type lineItem struct {
-	product    product.Product
-	orderQty   int
+	product  product.Product
+	orderQty int
 }
-
