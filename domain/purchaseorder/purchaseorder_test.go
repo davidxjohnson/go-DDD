@@ -2,7 +2,7 @@ package purchaseorder
 
 import (
 	"fmt"
-	"go-DDD/customer"
+	"go-DDD/domain/customer"
 	"testing"
 )
 
@@ -11,7 +11,7 @@ func TestNewPurchaseOrder(t *testing.T) {
 	myCustomer, err := customer.Customer{}.New("David", "Johnson", myPhones, "666", "Mockingbird Lane", "Mayberry", "NC", "27030", "US")
 	myPO, err := PurchaseOrder{}.New(myCustomer)
 	if err != nil {
-		t.Errorf("TestNewPurchaseOrder: NewPurchaseOrder() failed: %s", err.Error())
+		t.Errorf("TestNewPurchaseOrder: PurchaseOrder{}.New() failed: %s", err.Error())
 	} else {
 		fmt.Printf("Successfully create a Purchaseorder: %+v \n", myPO)
 	}

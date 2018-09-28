@@ -1,7 +1,7 @@
 package purchaseorder
 
 import (
-	"go-DDD/product"
+	"go-DDD/domain/product"
 )
 
 type lineItem struct {
@@ -10,9 +10,9 @@ type lineItem struct {
 }
 
 func (l lineItem) New (
-	product product.Product, 
+	product product.Product,
 	orderQty int)(newLineItem lineItem, err error) {
-	
+
 	l.product  = product
 	l.orderQty = orderQty
 
@@ -20,4 +20,4 @@ func (l lineItem) New (
 
 	return
 }
-	
+

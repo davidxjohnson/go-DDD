@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"testing"
 
-	"go-DDD/product"
+	"go-DDD/domain/product"
 )
 
 func TestNewCustomer(t *testing.T) {

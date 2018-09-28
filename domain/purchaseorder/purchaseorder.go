@@ -1,7 +1,7 @@
 package purchaseorder
 
 import (
-	"go-DDD/customer"
+	"go-DDD/domain/customer"
 	"go-DDD/utility"
 	"time"
 )
