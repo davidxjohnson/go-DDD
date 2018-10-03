@@ -10,7 +10,9 @@ import (
 	"github.com/satori/go.uuid"
 )
 
-type persistence interface {
+//This interface ensures that any type conforming to the state spec must implement
+//a method capable of persisting data and one capable of retrieving data 
+type state interface {
 	persistState(po purchaseorder.PurchaseOrder) (string, error)
 }
 
