@@ -26,7 +26,7 @@ func persistState(po purchaseorder.PurchaseOrder) (string, error) {
 	)
 
 	if err != nil {
-		fmt.Println(err)
+		return "", err
 	}
 	
 	json.NewEncoder(buffer).Encode(po)
