@@ -7,11 +7,11 @@ import (
 )
 
 type PurchaseOrder struct {
-	orderId      string
-	orderDate    time.Time
-	shippingDate time.Time
-	customer     customer.Customer
-	lineItems    []lineItem
+	orderId      string            `json:"orderId"`
+	orderDate    time.Time         `json:"orderDate"`
+	shippingDate time.Time         `json:"shippingDate"`
+	customer     customer.Customer `json:"customer"`
+	lineItems    []lineItem        `json:"lineItems"`
 }
 
 // type methods
