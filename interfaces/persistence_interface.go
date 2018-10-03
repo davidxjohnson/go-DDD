@@ -1,15 +1,18 @@
-package main
+package interfaces
 
 import (
 	"encoding/json"
 	"bytes"
-	"fmt"
 	"os"
 
 	"go-DDD/purchaseorder"
 
 	"github.com/satori/go.uuid"
 )
+
+type persistence interface {
+	persistState(po purchaseorder.PurchaseOrder) (string, error)
+}
 
 func generateUUID() string {
 	return (uuid.Must(uuid.NewV4())).String()
@@ -41,8 +44,8 @@ func retrieveState(id string) (purchaseorder.PurchaseOrder, error) {
 	return po, nil
 }
 
-func main() {
-	po := purchaseorder.PurchaseOrder{}
-
-	fmt.Println(persistState(po))
-}
+//func main() {
+//	po := purchaseorder.PurchaseOrder{}
+//
+//	fmt.Println(persistState(po))
+//}
