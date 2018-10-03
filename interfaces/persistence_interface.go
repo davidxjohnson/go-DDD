@@ -17,6 +17,7 @@ func generateUUID() string {
 
 //This function takes in a object of type PurchaseOrder for type safety, then encodes it as
 //JSON. This provides a []byte which we can then stream/write/etc as needed for persistance
+//It returns a string which is the index UUID so that the object can be retrieved later
 func persistState(po purchaseorder.PurchaseOrder) (string, error) {
 	var (
 		fileId      = generateUUID()
