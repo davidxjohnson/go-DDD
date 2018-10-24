@@ -41,6 +41,9 @@ func (d dataPersistence) retrieveState(id string) (purchaseorder.PurchaseOrder) 
 	return po
 }
 
+//This function tests implementation of our interface by creating a variable whose type is 
+//the interface we created. After that, we assign a variable of an arbitrary type, to test
+//whether that type satisifies the persisted interface
 func testInterfaceImplementation(t *testing.T) {
 	var (
 		persistence Persisted
