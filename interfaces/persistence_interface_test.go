@@ -3,19 +3,22 @@ package interfaces
 import (
 	"bytes"
 	"encoding/json"
+	"fmt"
 	"os"
-
+	"testing"
+	
 	"go-DDD/purchaseorder"
 	"go-DDD/utility"
 )
 
-// implement interface here ... secret sauce
-// #####
+type dataPersistence struct {
+	filename string
+}
 
 //This function takes in a object of type PurchaseOrder for type safety, then encodes it as
 //JSON. This returns a []byte which we can then stream/write/etc as needed for persistance.
 //It returns a string to be used an index id so the object can be retrieved later
-func persistState(po purchaseorder.PurchaseOrder) (string, error) {
+func (d dataPersistence)persistState(po purchaseorder.PurchaseOrder) (string, error) {
 	var (
 		fileID      = utility.Makeuuid()
 		lcFile, err = os.Create("/tmp/" + fileID)
@@ -32,14 +35,19 @@ func persistState(po purchaseorder.PurchaseOrder) (string, error) {
 	return fileID, nil
 }
 
-func retrieveState(id string) (purchaseorder.PurchaseOrder, error) {
+func (d dataPersistence) retrieveState(id string) (purchaseorder.PurchaseOrder) {
 	po := purchaseorder.PurchaseOrder{}
 
-	return po, nil
+	return po
 }
 
-//func main() {
-//	po := purchaseorder.PurchaseOrder{}
-//
-//	fmt.Println(persistState(po))
-//}
+func testInterfaceImplementation(t *testing.T) {
+	var (
+		persistence Persisted
+
+		dataStore = dataPersistence{filename: "localfile",}
+	)
+
+	persistence = dataStore
+	fmt.Println(persistence)
+}
