@@ -6,7 +6,6 @@ import (
 	"fmt"
 	"os"
 	"testing"
-	
 	"go-DDD/purchaseorder"
 	"go-DDD/utility"
 )
@@ -44,13 +43,7 @@ func (d dataPersistence) retrieveState(id string) (purchaseorder.PurchaseOrder) 
 //This function tests implementation of our interface by creating a variable whose type is 
 //the interface we created. After that, we assign a variable of an arbitrary type, to test
 //whether that type satisifies the persisted interface
-func testInterfaceImplementation(t *testing.T) {
-	var (
-		persistence Persisted
-
-		dataStore = dataPersistence{filename: "localfile",}
-	)
-
-	persistence = dataStore
-	fmt.Println(persistence)
+func TestInterfaceImplementation(t *testing.T) {
+	var persistence Persisted = dataPersistence{filename: "localfile",}
+	fmt.Printf("%++v \n",persistence)
 }
