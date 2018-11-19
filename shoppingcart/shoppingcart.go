@@ -8,7 +8,7 @@ import (
 )
 
 type shoppingcart struct {
-	items  []cartitem
+	items  map[string][]cartitem
 	cartID string 
 }
 
@@ -34,6 +34,7 @@ func (s *shoppingcart) addItem(qty int, item cartitem) {
 
 //TODO: how do we make sure we target the correct item for deletion?
 func (s *shoppingcart) deleteItem(qty int, product product.Product) {
+	
 }
 
 func (s *shoppingcart) changeQuantity(qty int, product product.Product) {
