@@ -1,7 +1,5 @@
 package shoppingcart
 
-//TODO: rework this to remove customer, add an ID, and a mechanism to create a unique cart
-//TODO: for each customer
 //TODO: remember - don't expose domain objects outside of this current scope 
 //TODO: think of this like a transitory state to get us to a persisted purchase order 
 import (
@@ -34,6 +32,7 @@ func (s *shoppingcart) addItem(qty int, item cartitem) {
 	s.items = append(s.items, item)
 }
 
+//TODO: how do we make sure we target the correct item for deletion?
 func (s *shoppingcart) deleteItem(qty int, product product.Product) {
 }
 
