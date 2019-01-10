@@ -25,6 +25,10 @@ func (s *shoppingcart) addItem(qty int, item cartitem) {}
 //TODO: how do we make sure we target the correct item for deletion?
 func (s *shoppingcart) deleteItem(qty int, product product.Product) {}
 
-func (s *shoppingcart) changeQuantity(qty int, product product.Product) {}
+//JCS - made this a function rather than a method. Passing in a pointer to the obj so we 
+//get a reference not a value. This allows us to modify the attribute of the original object
+func changeQuantity(quantity int, cartItem *product.Product) {
+	cartItem.Quantity = quantity
+}
 
 func (s *shoppingcart) submitCart(customer customer.Customer) {}
