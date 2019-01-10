@@ -9,7 +9,7 @@ import (
 )
 
 type shoppingcart struct {
-	items  map[string][]cartitem
+	items  map[string][]product.Product
 	cartID string 
 }
 
@@ -20,14 +20,14 @@ func (s *shoppingcart) newShoppingCart() *shoppingcart {
 	return s
 }
 
-func (s *shoppingcart) addItem(qty int, item cartitem) {}
+func (s *shoppingcart) addItem(qty int, cartItem product.Product) {}
 
 //TODO: how do we make sure we target the correct item for deletion?
-func (s *shoppingcart) deleteItem(qty int, product product.Product) {}
+func (s *shoppingcart) deleteItem(qty int, cartItem product.Product) {}
 
 //JCS - made this a function rather than a method. Passing in a pointer to the obj so we 
 //get a reference not a value. This allows us to modify the attribute of the original object
-func changeQuantity(quantity int, cartItem *product.Product) {
+func changeQuantity(qty int, cartItem *product.Product) {
 	cartItem.Quantity = quantity
 }
 
